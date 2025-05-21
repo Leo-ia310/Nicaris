@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -26,31 +26,37 @@ const Contact = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would handle the form submission, e.g., send an email
-    
-    // For now, just show a success message
-    toast({
-      title: "Mensaje enviado",
-      description: "Nos pondremos en contacto contigo pronto.",
-      duration: 5000,
-    });
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-      quickQuestion: ''
-    });
+
+    emailjs.send('service_euo5xko', 'template_h5hvu5w', formData, 'RX2ZKBMLaDbCRW9tR')
+      .then((response) => {
+        console.log('Mensaje enviado', response.status, response.text);
+        toast({
+          title: "Mensaje enviado",
+          description: "Nos pondremos en contacto contigo pronto.",
+          duration: 5000,
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+          quickQuestion: ''
+        });
+      }, (error) => {
+        console.error('Error al enviar el mensaje', error);
+        toast({
+          title: "Error",
+          description: "Hubo un problema al enviar tu mensaje. Intenta de nuevo más tarde.",
+          duration: 5000,
+        });
+      });
   };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      {/* Page Header */}
       <div className="bg-nicaris-green pt-32 pb-16 text-white">
         <div className="container">
           <h1 className="text-3xl md:text-4xl font-bold">Contacto</h1>
@@ -60,11 +66,9 @@ const Contact = () => {
         </div>
       </div>
       
-      {/* Contact Information and Form */}
       <section className="py-16">
         <div className="container">
           <div className="grid lg:grid-cols-5 gap-8 items-start">
-            {/* Contact Information */}
             <div className="lg:col-span-2 bg-white p-8 rounded-lg shadow-md">
               <h2 className="text-2xl font-semibold mb-6">Información de Contacto</h2>
               
@@ -106,7 +110,6 @@ const Contact = () => {
                 </div>
               </div>
               
-              {/* Social Media */}
               <div>
                 <h3 className="font-medium mb-3">Síguenos en redes sociales</h3>
                 <div className="flex gap-4">
@@ -140,7 +143,6 @@ const Contact = () => {
                 </div>
               </div>
               
-              {/* Business Hours */}
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <h3 className="font-medium mb-3">Horario de atención</h3>
                 <ul className="space-y-1 text-nicaris-lightText">
@@ -159,7 +161,6 @@ const Contact = () => {
                 </ul>
               </div>
               
-              {/* Quick Questions */}
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <h3 className="font-medium mb-3">¿Preguntas rápidas?</h3>
                 <select
@@ -169,8 +170,8 @@ const Contact = () => {
                   className="w-full rounded-md border border-gray-300 py-2 px-3 text-nicaris-darkText focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green mb-4"
                 >
                   <option value="">Selecciona una pregunta común</option>
-                  <option value="selling">¿Tenés una propiedad para vender?</option>
-                  <option value="investment">¿Querés invertir pero no sabés por dónde empezar?</option>
+                  <option value="selling">¿Tienes una propiedad para vender?</option>
+                  <option value="investment">¿Quieres invertir pero no sabés por dónde empezar?</option>
                   <option value="legal">¿Necesitás asesoría legal para una propiedad?</option>
                   <option value="recruiter">¿Te interesa ser captador con NICARIS?</option>
                 </select>
@@ -199,7 +200,6 @@ const Contact = () => {
               </div>
             </div>
             
-            {/* Contact Form */}
             <div className="lg:col-span-3 bg-white p-8 rounded-lg shadow-md">
               <h2 className="text-2xl font-semibold mb-6">Envíanos un mensaje</h2>
               <form onSubmit={handleSubmit}>
@@ -304,7 +304,6 @@ const Contact = () => {
             </div>
           </div>
           
-          {/* Map - Placeholder */}
           <div className="mt-12">
             <h2 className="text-2xl font-semibold mb-6">Nuestra ubicación</h2>
             <div className="bg-gray-200 h-[400px] rounded-lg flex items-center justify-center">
@@ -323,3 +322,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
+
