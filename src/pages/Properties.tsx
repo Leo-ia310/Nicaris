@@ -28,7 +28,7 @@ const allProperties: PropertyType[] = [
     size: 529,
     sizeUnit: "mz",
     type: "Cantera",
-    description: "Mina de piedra cantera, con permisos de explotacion"
+    description: "Mina de piedra cantera, con permisos de explotacion "
   },
   {
     id: 3,
