@@ -33,7 +33,7 @@ const AboutUs = () => {
                 en todo el territorio nacional.
               </p>
               <p className="mb-6">
-                Con más de 10 años de experiencia en el mercado inmobiliario, nos hemos destacado por 
+                Con más de 2 años de experiencia en el mercado inmobiliario, nos hemos destacado por 
                 ofrecer un servicio transparente, profesional y personalizado a cada uno de nuestros 
                 clientes, convirtiéndonos en el aliado ideal para quienes buscan invertir en 
                 Nicaragua.

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
@@ -6,49 +5,209 @@ import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import { MapPin, Ruler, Home, Phone, Mail, ArrowLeft } from 'lucide-react';
 
-// Mock data for a single property (in a real app, this would come from an API)
-const propertyData = {
-  id: 1,
-  title: "Finca Ganadera en Matagalpa",
-  description: "Excelente finca ganadera con fuentes de agua naturales, buen pasto para el ganado, casa de habitación, corrales, establos y acceso durante todo el año. La propiedad cuenta con 50 manzanas de terreno, de las cuales 40 están desarrolladas con pasto mejorado. Incluye una casa principal de 150m², 3 habitaciones, 2 baños, cocina, sala y comedor. La finca dispone de 2 pozos de agua y un río que atraviesa la propiedad.",
-  price: 150000,
-  location: "Matagalpa, a 15 km de la ciudad",
-  size: 50,
-  sizeUnit: "mz",
-  type: "Finca Ganadera",
-  usage: "Ganadero",
-  features: [
-    "Casa principal de 150m²",
-    "2 pozos de agua propios",
-    "Río cruza la propiedad",
-    "Corrales y establos",
-    "40 manzanas de pasto mejorado",
-    "Acceso todo el año",
-    "Energía eléctrica",
-    "Título de propiedad inscrito"
-  ],
-  images: [
-    "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?q=80&w=1200",
-    "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?q=80&w=1200",
-    "https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=1200",
-    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1200"
-  ],
-  contactInfo: {
-    name: "Carlos Rodríguez",
-    phone: "+505 8765 4321",
-    whatsapp: "+5058765432",
-    email: "carlos@nicaris.com"
+// Mock data for multiple properties
+const propertiesData = [
+  {
+    id: 1,
+    title: "Finca de 30 Manzanas",
+    description: "Excelente finca para turismo o descanso, cuenta con piscina y una presa que se puede llenar, lugares de para comer actividades recreativa. Tiene siembros y se puede utilizar para ganado, cuenta con su bomba de agua ",
+    price: 250000,
+    location: "Km 41.5 carretera a los chiles San rafael del sur",
+    size: 30,
+    sizeUnit: "mz",
+    type: "Finca Ganadera",
+    usage: "Quinta",
+    features: [
+    "3 Casas",
+    "2 Pozos",
+    "Luz",
+    "Documentos en regla",
+    "Agua", 
+    "Acta para ganaderia y agricultura",  
+    "Contiene rio adentro la finca", 
+    "La propiedad esta sobre la carretera",
+    "Posee tanque de agua",
+    ],
+    images: [
+      "../public/ImagenesFinca/FN30MuSRFDS/1.jpeg",
+      "../public/ImagenesFinca/FN30MuSRFDS/2.jpeg",
+      "../public/ImagenesFinca/FN30MuSRFDS/3.jpeg",
+      "../public/ImagenesFinca/FN30MuSRFDS/4.jpeg",
+      "../public/ImagenesFinca/FN30MuSRFDS/5.jpeg",
+      "../public/ImagenesFinca/FN30MuSRFDS/6.jpeg",
+      "../public/ImagenesFinca/FN30MuSRFDS/7.jpeg",
+    ],
+    contactInfo: {
+      name: "Andres Morales",
+      phone: "+505 8505 0811",
+      whatsapp: "+505 8505 0811",
+      email: "andresmoralesampienicaris@gmail.com"
+    }
+  },
+  {
+    id: 2,
+    title: "Inversion en Finca Minera",
+    description: "Hermosa casa de playa con vista al mar, 4 habitaciones, piscina privada y acceso directo a la playa.",
+    price: 5000000,
+    location: "nagarote, Nicaragua",
+    size: 529,
+    sizeUnit: "mz",
+    type: "Cantera",
+    usage: "Mina",
+    features: [
+    "Docmentos", 
+    "Para explotacion de cantera (material de alta caidad)",
+    "Incluye, equipos y maquinaria de producción para cantera",
+    ],
+    images: [
+      "../public/ImagenesFinca/MN529MNGcC/1.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/2.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/3.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/4.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/5.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/6.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/7.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/8.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/9.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/10.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/11.jpeg",
+      "../public/ImagenesFinca/MN529MNGcC/12.jpeg",
+
+
+
+    ],
+    contactInfo: {
+      name: "Andres Morales",
+      phone: "+505 8505 0811",
+      whatsapp: "+505 8505 0811",
+      email: "andresmoralesampienicaris@gmail.com"
+    }
+  },
+  {
+    id: 3,
+    title: "Finca de 222 Manzanas",
+    description: "La propiedad cuenta con topografía favorable y acceso por carretera, lo que facilita el traslado de maquinaria, insumos y productos. Su tamaño y ubicación permiten desarrollar proyectos a gran escala con enfoque en ganadería intensiva, agricultura extensiva o combinación de ambos.NOTA: las 2 casas una es para el cuidador y otra para el propietario.",
+    price: 1400000,
+    location: "Rivas Kilómetro 89, Nicaragua",
+    size: 222,
+    sizeUnit: "mz",
+    type: "Finca Ganadera",
+    usage: "Ganaderia",
+    features: [
+      "Documentos en reglas",
+      "2 Casas",
+      "Agua",
+      "Luz",
+      "3 Pozos",
+    ],
+    images: [
+      "../public/ImagenesFinca/FN222MuRVcG/4.jpeg",
+      "../public/ImagenesFinca/FN222MuRVcG/3.jpeg",
+      "../public/ImagenesFinca/FN222MuRVcG/2.jpeg",
+
+      
+    ],
+    contactInfo: {
+      name: "Andres Morales",
+      phone: "+505 8505 0811",
+      whatsapp: "+505 8505 0811",
+      email: "andresmoralesampienicaris@gmail.com"
+    }
+  },
+  {
+    id: 4,
+    title: "Finca en leon",
+    description: "Finca con todo Listo solo para ponerla a trabajar el acceso esta muy bueno entra cualquier vechiculo y esta 10 minutos de la carretera",
+    price: 210000,
+    location: "Leon a 30 minutos de managua, los cedros, Nicaragua",
+    size: 84,
+    sizeUnit: "mz",
+    type: "Ganadera",
+    usage: "Ganaderia",
+    features: [
+      "2 casas",
+      "Una bodega",
+      "1 rio que abarca toda la propiedad",
+      "Un lugar donde comen las vacas",
+      "Potreros",
+      "Agua",
+      "Luz",
+      "Documentos en regla",
+    ],
+    images: [
+      "../public/ImagenesFinca/FN84MuLNcG/1.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/2.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/3.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/4.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/6.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/8.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/10.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/11.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/13.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/14.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/16.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/17.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/19.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/21.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/25.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/26.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/28.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/30.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/31.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/32.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/33.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/35.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/36.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/37.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/38.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/39.jpeg",
+"../public/ImagenesFinca/FN84MuLNcG/40.jpeg"
+
+    ],
+    contactInfo: {
+      name: "Andres Morales",
+      phone: "+505 8505 0811",
+      whatsapp: "+505 8505 0811",
+      email: "andresmoralesampienicaris@gmail.com"
+    }
+  },
+  {
+    id: 5,
+    title: "Finca de Café en Jinotega",
+    description: "Finca productora de café con 30 manzanas de terreno, casa de trabajador y acceso a agua potable.",
+    price: 200000,
+    location: "Jinotega, Nicaragua",
+    size: 30,
+    sizeUnit: "mz",
+    type: "Finca de Café",
+    usage: "Agrícola",
+    features: [
+      "30 manzanas de cultivo de café",
+      "Casa de trabajador",
+      "Acceso a agua potable",
+      "Cercano a rutas de transporte"
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1200",
+      "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1200"
+    ],
+    contactInfo: {
+      name: "Luis Gómez",
+      phone: "+505 5555 5555",
+      whatsapp: "+50555555555",
+      email: "luis@nicaris.com"
+    }
   }
-};
+];
 
 const PropertyDetails = () => {
   const { id } = useParams();
   const [activeImage, setActiveImage] = React.useState(0);
   
-  // In a real app, you would fetch the property data based on the ID
-  const property = propertyData;
-  
-  // Handle case when property is not found
+  // Buscar la propiedad específica por ID
+  const property = propertiesData.find(prop => prop.id === parseInt(id));
+
+  // Manejar el caso cuando la propiedad no se encuentra
   if (!property) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -301,19 +460,19 @@ const PropertyDetails = () => {
                       <button type="submit" className="btn-secondary w-full">
                         Enviar solicitud
                       </button>
-                    </div>
-                  </form>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
-      </section>
-      
-      <Footer />
-      <WhatsAppButton phoneNumber={property.contactInfo.whatsapp} message={`Hola, estoy interesado en la propiedad: ${property.title}`} />
+      </div>
     </div>
-  );
+  </section>
+  
+  <Footer />
+  <WhatsAppButton phoneNumber={property.contactInfo.whatsapp} message={`Hola, estoy interesado en la propiedad: ${property.title}`} />
+</div>
+);
 };
 
 export default PropertyDetails;

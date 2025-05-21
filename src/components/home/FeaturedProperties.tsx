@@ -7,47 +7,47 @@ import { MapPin, ArrowRight } from 'lucide-react';
 const featuredProperties = [
   {
     id: 1,
-    title: "Finca Ganadera en Matagalpa",
-    imageUrl: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?q=80&w=600",
-    price: 150000,
-    location: "Matagalpa",
-    size: 50,
+    title: "Finca de 30 Manzanas",
+    imageUrl: "public/ImagenesFinca/Finca30.jpeg",
+    price: 200000,
+    location: "San rafael del sur",
+    size: 30,
     sizeUnit: "mz",
-    type: "Finca Ganadera",
-    description: "Excelente finca ganadera con fuentes de agua naturales y buen pasto para el ganado."
+    type: "Finca",
+    description: "Excelente finca para turismo, o bien para quinta"
   },
   {
     id: 2,
-    title: "Terreno de Inversión en Rivas",
-    imageUrl: "https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=600",
-    price: 75000,
-    location: "Rivas",
-    size: 10,
+    title: "Inversion en Finca Minera",
+    imageUrl: "public/ImagenesFinca/FincaMinera.jpeg",
+    price: 5000000,
+    location: "nagarote",
+    size: 529,
     sizeUnit: "mz",
-    type: "Terreno",
-    description: "Terreno con vista panorámica al mar, ideal para proyecto turístico o residencial."
+    type: "Cantera",
+    description: "Mina de piedra cantera, con permisos de explotacion"
   },
   {
     id: 3,
-    title: "Finca Agrícola en Jinotega",
-    imageUrl: "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?q=80&w=600",
-    price: 230000,
-    location: "Jinotega",
-    size: 35,
+    title: "Finca de 222 Manzanas ",
+    imageUrl: "public/ImagenesFinca/Finca222.jpeg",
+    price: 1400000,
+    location: "Rivas",
+    size: 222,
     sizeUnit: "mz",
-    type: "Finca Agrícola",
-    description: "Finca cafetalera en plena producción, con beneficio húmedo y excelente altura."
+    type: "Finca ganadera",
+    description: "Finca ganadera en rivas, adaptada para ganaderia"
   },
   {
     id: 4,
-    title: "Cantera con Permisos en León",
-    imageUrl: "https://images.unsplash.com/photo-1487252665478-49b61b47f302?q=80&w=600",
-    price: 320000,
-    location: "León",
-    size: 15,
+    title: "Finca en leon",
+    imageUrl: "public/ImagenesFinca/Finca84.jpeg",
+    price: 2100000,
+    location: "Leon",
+    size: 84,
     sizeUnit: "mz",
-    type: "Cantera",
-    description: "Cantera con todos los permisos de explotación al día y equipamiento incluido."
+    type: "Finca ganadera",
+    description: "Finca ganadera Full equipada"
   }
 ];
 

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -11,92 +10,48 @@ import { useLocation } from 'react-router-dom';
 const allProperties: PropertyType[] = [
   {
     id: 1,
-    title: "Finca Ganadera en Matagalpa",
-    imageUrl: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?q=80&w=600",
-    price: 150000,
-    location: "Matagalpa",
-    size: 50,
+    title: "Finca de 30 Manzanas",
+    imageUrl: "public/ImagenesFinca/Finca30.jpeg",
+    price: 250000,
+    location: "San rafael del sur",
+    size: 30,
     sizeUnit: "mz",
-    type: "Finca Ganadera",
-    description: "Excelente finca ganadera con fuentes de agua naturales, buen pasto para el ganado y casa de habitación."
+    type: "Finca",
+    description: "Excelente finca para turismo, o bien para quinta"
   },
   {
     id: 2,
-    title: "Terreno de Inversión en Rivas",
-    imageUrl: "https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=600",
-    price: 75000,
-    location: "Rivas",
-    size: 10,
+    title: "Inversion en Finca Minera",
+    imageUrl: "public/ImagenesFinca/FincaMinera.jpeg",
+    price: 5000000,
+    location: "nagarote",
+    size: 529,
     sizeUnit: "mz",
-    type: "Terreno",
-    description: "Terreno con vista panorámica al mar, ideal para proyecto turístico o residencial."
+    type: "Cantera",
+    description: "Mina de piedra cantera, con permisos de explotacion"
   },
   {
     id: 3,
-    title: "Finca Agrícola en Jinotega",
-    imageUrl: "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?q=80&w=600",
-    price: 230000,
-    location: "Jinotega",
-    size: 35,
+    title: "Finca de 222 Manzanas ",
+    imageUrl: "public/ImagenesFinca/Finca222.jpeg",
+    price: 1400000,
+    location: "Rivas",
+    size: 222,
     sizeUnit: "mz",
-    type: "Finca Agrícola",
-    description: "Finca cafetalera en plena producción, con beneficio húmedo y excelente altura."
+    type: "Finca ganadera",
+    description: "Finca ganadera en rivas, adaptada para ganaderia"
   },
   {
     id: 4,
-    title: "Cantera con Permisos en León",
-    imageUrl: "https://images.unsplash.com/photo-1487252665478-49b61b47f302?q=80&w=600",
-    price: 320000,
-    location: "León",
-    size: 15,
+    title: "Finca en leon",
+    imageUrl: "public/ImagenesFinca/Finca84.jpeg",
+    price: 2100000,
+    location: "Leon",
+    size: 84,
     sizeUnit: "mz",
-    type: "Cantera",
-    description: "Cantera con todos los permisos de explotación al día y equipamiento incluido."
+    type: "Finca ganadera",
+    description: "Finca ganadera Full equipada"
   },
-  {
-    id: 5,
-    title: "Casa Residencial en Granada",
-    imageUrl: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600",
-    price: 180000,
-    location: "Granada",
-    size: 300,
-    sizeUnit: "m²",
-    type: "Casa",
-    description: "Hermosa casa colonial restaurada en el centro histórico de Granada."
-  },
-  {
-    id: 6,
-    title: "Terreno Agrícola en Chinandega",
-    imageUrl: "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?q=80&w=600",
-    price: 95000,
-    location: "Chinandega",
-    size: 15,
-    sizeUnit: "mz",
-    type: "Terreno Agrícola",
-    description: "Terreno fértil ideal para cultivos de maní, con acceso a agua para riego."
-  },
-  {
-    id: 7,
-    title: "Finca Mixta en Estelí",
-    imageUrl: "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?q=80&w=600",
-    price: 280000,
-    location: "Estelí",
-    size: 60,
-    sizeUnit: "mz",
-    type: "Finca Mixta",
-    description: "Finca con área ganadera y agrícola, casa principal, bodega y beneficio."
-  },
-  {
-    id: 8,
-    title: "Propiedad para Desarrollo Turístico",
-    imageUrl: "https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=600",
-    price: 450000,
-    location: "Rivas",
-    size: 25,
-    sizeUnit: "mz",
-    type: "Inversión",
-    description: "Espectacular propiedad con playa privada, ideal para desarrollo turístico."
-  }
 ];
 
 const Properties = () => {

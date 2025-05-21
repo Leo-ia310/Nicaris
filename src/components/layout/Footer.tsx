@@ -18,7 +18,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-4">
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/nicaris.bienes.raices" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white hover:text-nicaris-gold transition-colors"
@@ -27,7 +27,7 @@ const Footer = () => {
                 <Facebook size={20} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/nicaris_nic/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white hover:text-nicaris-gold transition-colors"

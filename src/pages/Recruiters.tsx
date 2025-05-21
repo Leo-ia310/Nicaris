@@ -1,11 +1,12 @@
-
 import React from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import { CheckCircle2 } from 'lucide-react';
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import { toast } from "@/components/ui/use-toast"; 
 
-const Recruiters = () => {
+const Recruiters: React.FC = () => {
   const benefits = [
     {
       title: "Altas comisiones",
@@ -33,17 +34,35 @@ const Recruiters = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Form submission logic would go here
-    alert("Formulario enviado con éxito. Nos pondremos en contacto contigo pronto.");
-  };
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+
+  emailjs.sendForm('service_euo5xko', 'template_89fsjq7', form, 'RX2ZKBMLaDbCRW9tR')
+    .then((result) => {
+      console.log(result.text);
+      toast({
+        title: "¡Aplicación enviada!",
+        description: "Nos pondremos en contacto contigo pronto.",
+        duration: 5000,
+      });
+      form.reset();
+    }, (error) => {
+      console.error(error.text);
+      toast({
+        title: "Error al enviar",
+        description: "Hubo un problema al enviar tu aplicación. Intenta de nuevo.",
+        duration: 5000,
+        variant: "destructive"
+      });
+    });
+};
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      {/* Page Header */}
       <div className="bg-nicaris-green pt-32 pb-16 text-white">
         <div className="container">
           <h1 className="text-3xl md:text-4xl font-bold">Únete como Captador</h1>
@@ -53,11 +72,9 @@ const Recruiters = () => {
         </div>
       </div>
       
-      {/* Main Content */}
       <section className="py-16">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Column - Information */}
             <div>
               <h2 className="section-title">Conviértete en Captador</h2>
               <p className="mb-6">
@@ -71,19 +88,7 @@ const Recruiters = () => {
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-nicaris-green mt-1 shrink-0" />
-                  <span>Identificar propiedades en venta que pueden integrarse a nuestro portafolio</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={18} className="text-nicaris-green mt-1 shrink-0" />
                   <span>Contactar a propietarios interesados en vender sus terrenos o fincas</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={18} className="text-nicaris-green mt-1 shrink-0" />
-                  <span>Publicar anuncios en redes sociales para promocionar nuestras propiedades</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 size={18} className="text-nicaris-green mt-1 shrink-0" />
-                  <span>Conectarnos con personas interesadas en comprar propiedades</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 size={18} className="text-nicaris-green mt-1 shrink-0" />
@@ -135,7 +140,6 @@ const Recruiters = () => {
               </div>
             </div>
             
-            {/* Right Column - Application Form */}
             <div>
               <div className="bg-white p-8 rounded-lg shadow-md">
                 <h3 className="text-2xl font-semibold mb-6 text-center">Aplicar como Captador</h3>
@@ -148,6 +152,7 @@ const Recruiters = () => {
                       <input
                         type="text"
                         id="fullName"
+                        name="fullName"
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         required
                       />
@@ -160,6 +165,7 @@ const Recruiters = () => {
                       <input
                         type="tel"
                         id="phone"
+                        name="phone"
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         required
                       />
@@ -172,6 +178,7 @@ const Recruiters = () => {
                       <input
                         type="email"
                         id="email"
+                        name="email"
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         required
                       />
@@ -184,6 +191,7 @@ const Recruiters = () => {
                       <input
                         type="text"
                         id="location"
+                        name="location"
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         required
                       />
@@ -195,6 +203,7 @@ const Recruiters = () => {
                       </label>
                       <select
                         id="experience"
+                        name="experience"
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         required
                       >
@@ -210,6 +219,7 @@ const Recruiters = () => {
                       </label>
                       <textarea
                         id="whyInterested"
+                        name="whyInterested"
                         rows={4}
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         required
@@ -223,6 +233,7 @@ const Recruiters = () => {
                       <input
                         type="text"
                         id="references"
+                        name="references"
                         className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                       />
                     </div>
@@ -231,6 +242,7 @@ const Recruiters = () => {
                       <input 
                         type="checkbox" 
                         id="terms" 
+                        name="terms"
                         className="h-4 w-4 text-nicaris-green border-gray-300 rounded focus:ring-nicaris-green"
                         required
                       />
@@ -252,7 +264,6 @@ const Recruiters = () => {
         </div>
       </section>
       
-      {/* Testimonials Section */}
       <section className="bg-nicaris-cream py-16">
         <div className="container">
           <h2 className="text-3xl font-bold mb-12 text-center">Lo que dicen nuestros captadores</h2>
@@ -264,7 +275,7 @@ const Recruiters = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="font-semibold">María Rodríguez</h4>
-                  <p className="text-sm text-nicaris-lightText">Captadora desde 2022</p>
+                  <p className="text-sm text-nicaris-lightText">Captadora desde 2023</p>
                 </div>
               </div>
               <p className="italic">
@@ -280,7 +291,7 @@ const Recruiters = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="font-semibold">Juan López</h4>
-                  <p className="text-sm text-nicaris-lightText">Captador desde 2021</p>
+                  <p className="text-sm text-nicaris-lightText">Captador desde 2024</p>
                 </div>
               </div>
               <p className="italic">
@@ -296,7 +307,7 @@ const Recruiters = () => {
                 </div>
                 <div className="ml-4">
                   <h4 className="font-semibold">Ana Pérez</h4>
-                  <p className="text-sm text-nicaris-lightText">Captadora desde 2020</p>
+                  <p className="text-sm text-nicaris-lightText">Captadora desde 2023</p>
                 </div>
               </div>
               <p className="italic">
