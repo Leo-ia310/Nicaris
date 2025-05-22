@@ -122,7 +122,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={20} className="text-nicaris-gold shrink-0" />
-                <a href="mailto:contactonicaris@gmail.com" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contactonicaris@gmail.com" target='_blank' className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   contactonicaris@gmail.com
                 </a>
               </div>

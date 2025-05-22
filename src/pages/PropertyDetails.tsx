@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
-import { MapPin, Ruler, Home, Phone, Mail, ArrowLeft } from 'lucide-react';
+import { MapPin, Ruler, Home, Phone, Mail, ArrowLeft, Target } from 'lucide-react';
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com'; // Importar emailjs
+import { toast } from "@/components/ui/use-toast";
 
 // Mock data for multiple properties
 const propertiesData = [
@@ -17,16 +19,20 @@ const propertiesData = [
     sizeUnit: "mz",
     type: "Finca Ganadera",
     usage: "Quinta",
+    Data: "de san rafael del sur, de 30 manzanas",
+    IDservice: "service_0sscbwl",
+    IDTemplateGM:"template_l3odtlo",
+    ID_PR: "JkFHr3eLBSaKWHVdW",
     features: [
-    "3 Casas",
-    "2 Pozos",
-    "Luz",
-    "Documentos en regla",
-    "Agua", 
-    "Acta para ganaderia y agricultura",  
-    "Contiene rio adentro la finca", 
-    "La propiedad esta sobre la carretera",
-    "Posee tanque de agua",
+      "3 Casas",
+      "2 Pozos",
+      "Luz",
+      "Documentos en regla",
+      "Agua", 
+      "Acta para ganaderia y agricultura",  
+      "Contiene rio adentro la finca", 
+      "La propiedad esta sobre la carretera",
+      "Posee tanque de agua",
     ],
     images: [
       "../ImagenesFinca/FN30MuSRFDS/1.jpeg",
@@ -40,7 +46,7 @@ const propertiesData = [
     contactInfo: {
       name: "Andres Morales",
       phone: "+505 8505 0811",
-      whatsapp: "+505 8505 0811",
+      whatsapp: "85050811",
       email: "andresmoralesampienicaris@gmail.com"
     }
   },
@@ -54,6 +60,10 @@ const propertiesData = [
     sizeUnit: "mz",
     type: "Cantera",
     usage: "Mina",
+    Data: " de nagarote de 529 manzanas, la mina de piedra cantera",
+    IDservice: "service_0sscbwl",
+    IDTemplateGM:"template_l3odtlo",
+    ID_PR: "JkFHr3eLBSaKWHVdW",
     features: [
     "Docmentos", 
     "Para explotacion de cantera (material de alta caidad)",
@@ -79,7 +89,7 @@ const propertiesData = [
     contactInfo: {
       name: "Andres Morales",
       phone: "+505 8505 0811",
-      whatsapp: "+505 8505 0811",
+      whatsapp: "85050811",
       email: "andresmoralesampienicaris@gmail.com"
     }
   },
@@ -93,6 +103,10 @@ const propertiesData = [
     sizeUnit: "mz",
     type: "Finca Ganadera",
     usage: "Ganaderia",
+    Data: "de 222 manzanas en rivas km 89",
+    IDservice: "service_0sscbwl",
+    IDTemplateGM:"template_l3odtlo",
+    ID_PR: "JkFHr3eLBSaKWHVdW",
     features: [
       "Documentos en reglas",
       "2 Casas",
@@ -110,7 +124,7 @@ const propertiesData = [
     contactInfo: {
       name: "Andres Morales",
       phone: "+505 8505 0811",
-      whatsapp: "+505 8505 0811",
+      whatsapp: "85050811",
       email: "andresmoralesampienicaris@gmail.com"
     }
   },
@@ -124,6 +138,10 @@ const propertiesData = [
     sizeUnit: "mz",
     type: "Ganadera",
     usage: "Ganaderia",
+    Data: "de 84 manzanas en Leon, los cedros",
+    IDservice: "service_0sscbwl",
+    IDTemplateGM:"template_l3odtlo",
+    ID_PR: "JkFHr3eLBSaKWHVdW",
     features: [
       "2 casas",
       "Una bodega",
@@ -167,7 +185,7 @@ const propertiesData = [
     contactInfo: {
       name: "Andres Morales",
       phone: "+505 8505 0811",
-      whatsapp: "+505 8505 0811",
+      whatsapp: "85050811",
       email: "andresmoralesampienicaris@gmail.com"
     }
   },
@@ -200,10 +218,18 @@ const propertiesData = [
   }
 ];
 
+
 const PropertyDetails = () => {
   const { id } = useParams();
-  const [activeImage, setActiveImage] = React.useState(0);
-  
+  const [activeImage, setActiveImage] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message:'',
+  });
+  const [statusMessage, setStatusMessage] = useState('');
+
   // Buscar la propiedad específica por ID
   const property = propertiesData.find(prop => prop.id === parseInt(id));
 
@@ -222,6 +248,56 @@ const PropertyDetails = () => {
         <Footer />
       </div>
     );
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const templateParams = {
+      from_name: formData.name,
+      to_name: property.contactInfo.name,
+      message: formData.message,
+      reply_to: formData.email,
+      phone: formData.phone,
+    };
+
+    try {
+    const response = await emailjs.send(
+    `${property.IDservice}`,  
+    `${property.IDTemplateGM}`,
+    templateParams,
+    `${property.ID_PR}`
+);
+
+  if (response.status === 200) {
+    toast({
+      title: "¡Correo enviado con éxito!",
+      description: "Nos pondremos en contacto contigo pronto.",
+      duration: 5000,
+    });
+  
+    setFormData({ name: '', email: '', phone: '', message: '' }); // Limpiar formulario
+  } else {
+    toast({
+      title: "Error al enviar",
+      description: "Hubo un problema al enviar el correo. Intenta de nuevo.",
+      duration: 5000,
+      variant: "destructive",
+    });
+  }
+} catch (error) {
+  console.error('Error al enviar el correo:', error);
+  toast({
+    title: "Error inesperado",
+    description: "No se pudo enviar el correo. Inténtalo más tarde.",
+    duration: 5000,
+    variant: "destructive",
+  });
+}
   }
 
   return (
@@ -278,7 +354,7 @@ const PropertyDetails = () => {
                     >
                       <img
                         src={image}
-                        alt={`Thumbnail ${idx + 1}`}
+                        alt={`Error 404 ${idx + 1}`}
                         className="w-full h-full object-cover"
                       />
                     </button>
@@ -377,7 +453,8 @@ const PropertyDetails = () => {
                     <span>{property.contactInfo.phone}</span>
                   </a>
                   <a 
-                    href={`mailto:${property.contactInfo.email}`} 
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${property.contactInfo.email}`} 
+                    target='_blank'
                     className="flex items-center gap-3 p-3 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
                   >
                     <Mail size={20} className="text-nicaris-green" />
@@ -386,7 +463,7 @@ const PropertyDetails = () => {
                 </div>
                 
                 <a 
-                  href={`https://wa.me/${property.contactInfo.whatsapp}?text=Hola, estoy interesado en la propiedad: ${property.title}`}
+                  href={`https://wa.me/${property.contactInfo.whatsapp}?text=Hola, estoy interesado en la propiedad ${property.Data}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary w-full flex items-center justify-center gap-2"
@@ -411,7 +488,7 @@ const PropertyDetails = () => {
                 {/* Contact Form */}
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <h3 className="text-lg font-medium mb-4">Solicitar información</h3>
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="space-y-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium mb-1">
@@ -420,6 +497,9 @@ const PropertyDetails = () => {
                         <input 
                           type="text"
                           id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
                           className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                           required
                         />
@@ -431,6 +511,9 @@ const PropertyDetails = () => {
                         <input 
                           type="email"
                           id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
                           className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                           required
                         />
@@ -442,6 +525,9 @@ const PropertyDetails = () => {
                         <input 
                           type="tel"
                           id="phone"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
                           className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                         />
                       </div>
@@ -451,7 +537,10 @@ const PropertyDetails = () => {
                         </label>
                         <textarea 
                           id="message"
+                          name="message"
                           rows={4}
+                          value={formData.message}
+                          onChange={handleChange}
                           className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-nicaris-green focus:border-nicaris-green"
                           defaultValue={`Hola, estoy interesado en la propiedad "${property.title}" y me gustaría obtener más información.`}
                           required
@@ -460,19 +549,20 @@ const PropertyDetails = () => {
                       <button type="submit" className="btn-secondary w-full">
                         Enviar solicitud
                       </button>
+                      {statusMessage && <p className="text-sm text-green-600 mt-2">{statusMessage}</p>}
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+      
+      <Footer />
+      <WhatsAppButton phoneNumber={property.contactInfo.whatsapp} message={`Hola, estoy interesado en la propiedad: ${property.title}`} />
     </div>
-  </section>
-  
-  <Footer />
-  <WhatsAppButton phoneNumber={property.contactInfo.whatsapp} message={`Hola, estoy interesado en la propiedad: ${property.title}`} />
-</div>
-);
+  );
 };
 
 export default PropertyDetails;
