@@ -108,13 +108,13 @@ const Legal = () => {
               <h3 className="text-2xl font-semibold mb-6">Recursos Adicionales</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <a 
-                  href="#" 
+                  href="../Guia.pdf" download
                   className="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-nicaris-green mb-3">
                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                   </svg>
-                  <h4 className="font-semibold mb-2">Guía de Compra de Propiedades</h4>
+                  <h4 className="font-semibold cursor-pointer text-blue-600 hover:underline">Guía de Compra de Propiedades</h4>
                   <p className="text-sm text-nicaris-lightText">
                     Descarga nuestra guía completa sobre el proceso de compra de propiedades en Nicaragua
                   </p>
@@ -128,7 +128,11 @@ const Legal = () => {
                     <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
                   </svg>
-                  <h4 className="font-semibold mb-2">Documentos Legales Básicos</h4>
+                  <a href="../Doc.pdf" download>
+                  <h4 className="font-semibold mb-2 cursor-pointer text-blue-600 hover:underline">
+                  Documentos Legales Básicos
+                  </h4>
+                  </a>
                   <p className="text-sm text-nicaris-lightText">
                     Lista de documentos legales necesarios para comprar o vender una propiedad
                   </p>
