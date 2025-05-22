@@ -208,7 +208,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                         required
                       >
                         <option value="">Seleccionar</option>
-                        <option value="yes">Sí</option>
+                        <option value="Si">Sí</option>
                         <option value="no">No</option>
                       </select>
                     </div>
