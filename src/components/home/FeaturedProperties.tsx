@@ -9,7 +9,7 @@ const featuredProperties = [
     id: 1,
     title: "Finca de 30 Manzanas",
     imageUrl: "../ImagenesFinca/Finca30.jpeg",
-    price: 200000,
+    price: 250000,
     location: "San rafael del sur",
     size: 30,
     sizeUnit: "mz",
