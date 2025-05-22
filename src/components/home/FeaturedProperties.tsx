@@ -8,7 +8,7 @@ const featuredProperties = [
   {
     id: 1,
     title: "Finca de 30 Manzanas",
-    imageUrl: "public/ImagenesFinca/Finca30.jpeg",
+    imageUrl: "../ImagenesFinca/Finca30.jpeg",
     price: 200000,
     location: "San rafael del sur",
     size: 30,
@@ -19,7 +19,7 @@ const featuredProperties = [
   {
     id: 2,
     title: "Inversion en Finca Minera",
-    imageUrl: "public/ImagenesFinca/FincaMinera.jpeg",
+    imageUrl: "../ImagenesFinca/FincaMinera.jpeg",
     price: 5000000,
     location: "nagarote",
     size: 529,
@@ -30,7 +30,7 @@ const featuredProperties = [
   {
     id: 3,
     title: "Finca de 222 Manzanas ",
-    imageUrl: "public/ImagenesFinca/Finca222.jpeg",
+    imageUrl: "../ImagenesFinca/Finca222.jpeg",
     price: 1400000,
     location: "Rivas",
     size: 222,
@@ -41,7 +41,7 @@ const featuredProperties = [
   {
     id: 4,
     title: "Finca en leon",
-    imageUrl: "public/ImagenesFinca/Finca84.jpeg",
+    imageUrl: "../ImagenesFinca/Finca84.jpeg",
     price: 2100000,
     location: "Leon",
     size: 84,
