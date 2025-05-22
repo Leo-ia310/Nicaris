@@ -47,10 +47,10 @@ const AboutPreview = () => {
             </div>
             <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-lg shadow-lg max-w-[250px] hidden lg:block">
               <div className="flex items-center justify-center mb-3">
-                <span className="text-3xl font-bold text-nicaris-green">+200</span>
+                <span className="text-3xl font-bold text-nicaris-green">+30</span>
               </div>
               <p className="text-center text-nicaris-darkText">
-                Propiedades vendidas en los últimos 3 años
+                Propiedades vendidas en los últimos 2 años
               </p>
             </div>
           </div>
