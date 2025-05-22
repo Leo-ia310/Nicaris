@@ -11,7 +11,7 @@ const allProperties: PropertyType[] = [
   {
     id: 1,
     title: "Finca de 30 Manzanas",
-    imageUrl: "../../public/ImagenesFinca/Finca30.jpeg",
+    imageUrl: "../ImagenesFinca/Finca30.jpeg",
     price: 250000,
     location: "San rafael del sur",
     size: 30,
@@ -21,8 +21,8 @@ const allProperties: PropertyType[] = [
   },
   {
     id: 2,
-    title: "../../Inversion en Finca Minera",
-    imageUrl: "public/ImagenesFinca/FincaMinera.jpeg",
+    title: "Inversion en Finca Minera",
+    imageUrl: "/ImagenesFinca/FincaMinera.jpeg",
     price: 5000000,
     location: "nagarote",
     size: 529,
