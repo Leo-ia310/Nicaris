@@ -11,7 +11,7 @@ const allProperties: PropertyType[] = [
   {
     id: 1,
     title: "Finca de 30 Manzanas",
-    imageUrl: "public/ImagenesFinca/Finca30.jpeg",
+    imageUrl: "../public/ImagenesFinca/Finca30.webp",
     price: 250000,
     location: "San rafael del sur",
     size: 30,
