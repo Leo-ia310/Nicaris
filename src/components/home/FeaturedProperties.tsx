@@ -42,7 +42,7 @@ const featuredProperties = [
     id: 4,
     title: "Finca en leon",
     imageUrl: "../ImagenesFinca/Finca84.jpeg",
-    price: 2100000,
+    price: 210000,
     location: "Leon",
     size: 84,
     sizeUnit: "mz",
