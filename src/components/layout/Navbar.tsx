@@ -8,6 +8,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
+  const timerRef = useRef(null); // Ref to manage delay timers
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +33,19 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
     setActiveDropdown(null);
+  };
+
+  const openDropdown = (id) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current); // Clear any close timers
+    }
+    setActiveDropdown(id);
+  };
+
+  const closeDropdownWithDelay = () => {
+    timerRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 300); // Delay in milliseconds to keep dropdown open briefly
   };
 
   const toggleDropdown = (id) => {
@@ -97,7 +111,8 @@ const Navbar = () => {
             <div
               key={item.id}
               className="relative"
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseEnter={() => openDropdown(item.id)}
+              onMouseLeave={closeDropdownWithDelay}
             >
               {item.dropdown ? (
                 <>
@@ -129,6 +144,8 @@ const Navbar = () => {
                       "absolute top-full left-0 mt-2 w-48 bg-nicaris-cream rounded-md shadow-lg overflow-hidden transition-opacity duration-300",
                       activeDropdown === item.id ? "opacity-100 visible" : "opacity-0 invisible"
                     )}
+                    onMouseEnter={() => openDropdown(item.id)}
+                    onMouseLeave={closeDropdownWithDelay}
                   >
                     {item.dropdown.map((dropItem) => (
                       <Link
@@ -180,6 +197,17 @@ const Navbar = () => {
         )}
         aria-label="Mobile menu"
       >
+        {/* Botón de cerrar dentro del menú móvil */}
+        <div className="flex justify-end pr-4 pt-2">
+          <button
+            onClick={toggleMenu}
+            className="text-gray-600 hover:text-nicaris-green focus:outline-none"
+            aria-label="Cerrar menú"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
         <div className="flex flex-col">
           {menuItems.map((item) => (
             <div key={item.id} className="border-b border-gray-200 last:border-b-0">
@@ -240,4 +268,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
