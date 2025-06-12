@@ -4,121 +4,139 @@ import Footer from '@/components/layout/Footer';
 import PropertyFilter from '@/components/property/PropertyFilter';
 import PropertyCard, { PropertyType } from '@/components/property/PropertyCard';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
-import { useLocation } from 'react-router-dom';
-
-// Mock data for properties
-const allProperties: PropertyType[] = [
-  {
-    id: 1,
-    title: "Finca de 30 Manzanas",
-    imageUrl: "../ImagenesFinca/Finca30.jpeg",
-    price: 250000,
-    location: "San rafael del sur",
-    size: 30,
-    sizeUnit: "mz",
-    type: "Finca",
-    description: "Excelente finca para turismo, o bien para quinta"
-  },
-  {
-    id: 2,
-    title: "Inversion en Finca Minera",
-    imageUrl: "../ImagenesFinca/FincaMinera.jpeg",
-    price: 5000000,
-    location: "nagarote",
-    size: 529,
-    sizeUnit: "mz",
-    type: "Cantera",
-    description: "Mina de piedra cantera, con permisos de explotacion "
-  },
-  {
-    id: 3,
-    title: "Finca de 222 Manzanas ",
-    imageUrl: "../ImagenesFinca/Finca222.jpeg",
-    price: 1400000,
-    location: "Rivas",
-    size: 222,
-    sizeUnit: "mz",
-    type: "Finca ganadera",
-    description: "Finca ganadera en rivas, adaptada para ganaderia"
-  },
-  {
-    id: 4,
-    title: "Finca en leon",
-    imageUrl: "../ImagenesFinca/Finca84.jpeg",
-    price: 210000,
-    location: "Leon",
-    size: 84,
-    sizeUnit: "mz",
-    type: "Finca ganadera",
-    description: "Finca ganadera Full equipada"
-  },
-];
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Properties = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const typeFromUrl = queryParams.get('type') || '';
 
-  const [properties, setProperties] = useState<PropertyType[]>(allProperties);
-  const [filteredProperties, setFilteredProperties] = useState<PropertyType[]>(allProperties);
+  const [propertiesData, setPropertiesData] = useState<PropertyType[]>([]);
+  const [filteredProperties, setFilteredProperties] = useState<PropertyType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    type: typeFromUrl,
+    price: '',
+    location: '',
+    search: ''
+  });
 
-  const applyFilters = (filters: any) => {
-    setIsLoading(true);
-    
-    // Simulate API call with timeout
-    setTimeout(() => {
-      let filtered = [...properties];
-      
-      // Filter by type
-      if (filters.type) {
-        filtered = filtered.filter(prop => 
-          prop.type.toLowerCase().includes(filters.type.toLowerCase())
-        );
-      }
-      
-      // Filter by price range
-      if (filters.price) {
-        const [minPrice, maxPrice] = filters.price.split('-');
-        if (minPrice && maxPrice) {
-          filtered = filtered.filter(prop => 
-            prop.price >= parseInt(minPrice) && prop.price <= parseInt(maxPrice)
-          );
-        } else if (minPrice && minPrice.includes('+')) {
-          const min = parseInt(minPrice.replace('+', ''));
-          filtered = filtered.filter(prop => prop.price >= min);
+  // Fetch properties from Google Sheets
+  useEffect(() => {
+    const fetchProperties = async () => { 
+      setIsLoading(true);
+      try {
+        const response = await fetch('https://sheets.googleapis.com/v4/spreadsheets/1z535l_nlwJ-G3AnE16cqGossy4yBe0Wx4sNkpJ6ecxE/values/Backend2?key=AIzaSyDqkyWiU-HicT3Z5ltVxomucHt671y0Tro');
+        const data = await response.json();
+
+        if (Array.isArray(data.values)) {
+          const transformedData = data.values.slice(1).map(row => ({
+            id: row[0], // ID
+            title: row[1], // Título
+            imageUrl: row[19], // URL de la imagen
+            price: parseFloat(row[6]) || 0, // Precio
+            location: row[4], // Ubicación
+            size: row[13] || row[11] || 0, // Tamaño
+            sizeUnit: row[53], // Unidad de tamaño
+            type: row[7], // Tipo 
+            description: row[2], // Descripción
+          }));
+
+          setPropertiesData(transformedData);
+          setFilteredProperties(transformedData); // Inicializa filteredProperties con todos los datos
+        } else {
+          console.error('La respuesta no contiene un array en data.values:', data);
         }
+      } catch (error) {
+        console.error('Error fetching properties:', error);
+      } finally {
+        setIsLoading(false);
       }
-      
-      // Filter by location
-      if (filters.location) {
-        filtered = filtered.filter(prop => 
-          prop.location.toLowerCase().includes(filters.location.toLowerCase())
-        );
-      }
-      
-      // Filter by search term
-      if (filters.search) {
-        const searchTerm = filters.search.toLowerCase();
-        filtered = filtered.filter(prop => 
-          prop.title.toLowerCase().includes(searchTerm) || 
-          prop.description.toLowerCase().includes(searchTerm) ||
-          prop.location.toLowerCase().includes(searchTerm) ||
-          prop.type.toLowerCase().includes(searchTerm)
-        );
-      }
-      
+    };
+
+    fetchProperties();
+  }, []);
+
+  // Sincroniza el filtro 'type' con la URL cada vez que cambia el parámetro
+  useEffect(() => {
+    setFilters(prev => ({
+      ...prev,
+      type: typeFromUrl
+    }));
+  }, [typeFromUrl]);
+
+  // Aplica los filtros cada vez que cambian los filtros o los datos
+  useEffect(() => {
+    setIsLoading(true);
+
+    let filtered = [...propertiesData];
+    const { type, price, location, search } = filters;
+
+    // Si no hay filtros aplicados, mostrar todas las propiedades
+    if (!type && !price && !location && !search) {
       setFilteredProperties(filtered);
       setIsLoading(false);
-    }, 500);
-  };
-
-  // Initialize with URL params if present
-  useEffect(() => {
-    if (typeFromUrl) {
-      applyFilters({ type: typeFromUrl });
+      return;
     }
-  }, [typeFromUrl]);
+
+    // Filtrar por tipo
+    if (type && type !== 'todos') {
+      filtered = filtered.filter(prop =>
+        prop.type?.toLowerCase().includes(type.toLowerCase())
+      );
+    }
+
+    // Filtrar por rango de precio
+    if (price) {
+      const [minPrice, maxPrice] = price.split('-');
+      if (minPrice && maxPrice) {
+        filtered = filtered.filter(prop =>
+          prop.price >= parseInt(minPrice) && prop.price <= parseInt(maxPrice)
+        );
+      } else if (minPrice && minPrice.includes('+')) {
+        const min = parseInt(minPrice.replace('+', ''));
+        filtered = filtered.filter(prop => prop.price >= min);
+      }
+    }
+
+    // Filtrar por ubicación
+    if (location) {
+      filtered = filtered.filter(prop =>
+        prop.location?.toLowerCase().includes(location.toLowerCase())
+      );
+    }
+
+    // Filtrar por término de búsqueda
+    if (search) {
+      const searchTerm = search.toLowerCase();
+      filtered = filtered.filter(prop =>
+        prop.title?.toLowerCase().includes(searchTerm) ||
+        prop.description?.toLowerCase().includes(searchTerm) ||
+        prop.location?.toLowerCase().includes(searchTerm) ||
+        prop.type?.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    setFilteredProperties(filtered);
+    setIsLoading(false);
+  }, [filters, propertiesData]);
+
+  // Cuando el usuario cambia los filtros desde el filtro visual
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+
+    // Si el filtro de tipo cambia, actualiza la URL
+    if (newFilters.type !== typeFromUrl) {
+      const params = new URLSearchParams(location.search);
+      if (newFilters.type) {
+        params.set('type', newFilters.type);
+      } else {
+        params.delete('type');
+      }
+      navigate({ search: params.toString() }, { replace: true });
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -139,8 +157,8 @@ const Properties = () => {
         <div className="container">
           {/* Property Filter */}
           <PropertyFilter 
-            onFilterChange={applyFilters} 
-            initialValues={{ type: typeFromUrl }}
+            onFilterChange={handleFilterChange} 
+            initialValues={filters}
           />
           
           {/* Properties Grid */}
@@ -168,7 +186,7 @@ const Properties = () => {
                   No se encontraron propiedades con los criterios seleccionados.
                 </p>
                 <button 
-                  onClick={() => applyFilters({})}
+                  onClick={() => setFilters({ type: '', price: '', location: '', search: '' })}
                   className="mt-4 btn-outline"
                 >
                   Limpiar filtros
