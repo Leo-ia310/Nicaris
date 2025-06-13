@@ -45,14 +45,14 @@ const Navbar = () => {
             <span className="text-white font-bold text-lg">N</span>
           </div>
           <div className="flex flex-col">
-            <h1
+            <h2
               className={cn(
                 "font-bold text-xl transition-colors duration-300",
                 scrolled ? "text-nicaris-green" : "text-white"
               )}
             >
-              NICARIS
-            </h1>
+              NICARIS 
+            </h2>
             <span
               className={cn(
                 "text-xs font-light transition-colors duration-300",
