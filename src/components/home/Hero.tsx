@@ -59,7 +59,7 @@ const Hero = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl text-white">
             <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white animate-fade-in">
-              Bienes raíces en Nicaragua: Terrenos, Fincas y Canteras en Venta
+              Tu inversión segura en Nicaragua empieza con Nicaris
             </h1>
             <p className="text-lg md:text-xl mb-8 text-white/90">
               Tu inversión segura en Nicaragua empieza con Nicaris. Expertos en propiedades rurales, Terrenos, Fincas y Canteras en Venta . 

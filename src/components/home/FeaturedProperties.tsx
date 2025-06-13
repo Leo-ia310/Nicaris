@@ -1,59 +1,53 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, ArrowRight } from 'lucide-react';
 
-// Mock data for featured properties
-const featuredProperties = [
-  {
-    id: 1,
-    title: "Finca de 30 Manzanas",
-    imageUrl: "../ImagenesFinca/Finca30.jpeg",
-    price: 250000,
-    location: "San rafael del sur",
-    size: 30,
-    sizeUnit: "mz",
-    type: "Finca",
-    description: "Excelente finca para turismo, o bien para quinta"
-  },
-  {
-    id: 2,
-    title: "Inversion en Finca Minera",
-    imageUrl: "../ImagenesFinca/FincaMinera.jpeg",
-    price: 5000000,
-    location: "nagarote",
-    size: 529,
-    sizeUnit: "mz",
-    type: "Cantera",
-    description: "Mina de piedra cantera, con permisos de explotacion"
-  },
-  {
-    id: 3,
-    title: "Finca de 222 Manzanas ",
-    imageUrl: "../ImagenesFinca/Finca222.jpeg",
-    price: 1400000,
-    location: "Rivas",
-    size: 222,
-    sizeUnit: "mz",
-    type: "Finca ganadera",
-    description: "Finca ganadera en rivas, adaptada para ganaderia"
-  },
-  {
-    id: 4,
-    title: "Finca en leon",
-    imageUrl: "../ImagenesFinca/Finca84.jpeg",
-    price: 210000,
-    location: "Leon",
-    size: 84,
-    sizeUnit: "mz",
-    type: "Finca ganadera",
-    description: "Finca ganadera Full equipada"
-  }
-];
-
 const FeaturedProperties = () => {
+  const [featuredProperties, setFeaturedProperties] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperties = async () => { 
+      setIsLoading(true);
+      try {
+        const response = await fetch('https://sheets.googleapis.com/v4/spreadsheets/1z535l_nlwJ-G3AnE16cqGossy4yBe0Wx4sNkpJ6ecxE/values/Backend2?key=AIzaSyDqkyWiU-HicT3Z5ltVxomucHt671y0Tro');
+        const data = await response.json();
+
+        if (data.values && Array.isArray(data.values)) {
+          const transformedData = data.values.slice(1).map(row => ({
+            id: row[0],
+            title: row[1],
+            imageUrl: row[19],
+            price: parseFloat(row[6]) || 0,
+            location: row[4],
+            size: row[13] || row[11] || 0,
+            sizeUnit: row[53],
+            type: row[7],
+            description: row[2],
+          }));
+
+          // Seleccionar 4 propiedades aleatorias
+          const randomProperties = transformedData.sort(() => 0.5 - Math.random()).slice(0, 4);
+          setFeaturedProperties(randomProperties);
+        } else {
+          console.error('La respuesta no contiene un array en data.values:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching properties:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
+
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
   return (
-    <section className="section-spacing">
+    <section className="section-spacing ">
       <div className="container">
         <div className="flex justify-between items-end mb-10">
           <div>
@@ -75,10 +69,10 @@ const FeaturedProperties = () => {
           {featuredProperties.map((property) => (
             <div 
               key={property.id} 
-              className="bg-white rounded-lg overflow-hidden card-shadow hover:translate-y-[-5px] transition-all duration-300"
+              className="bg-white rounded-lg overflow-hidden card-shadow hover:translate-y-[-20px] transition-all duration-300  shadow-black "
             >
               <Link to={`/property/${property.id}`}>
-                <div className="relative h-48">
+                <div className="relative h-48  shadow-black ">
                   <img
                     src={property.imageUrl}
                     alt={property.title}
