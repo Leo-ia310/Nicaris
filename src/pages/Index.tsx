@@ -81,8 +81,8 @@ const Index = () => {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-white max-w-2xl">
-              <h2 className="text-3xl font-bold mb-4">¿Tienes una propiedad para vender?</h2>
-              <p className="text-white/90 text-lg">
+              <h2 className="text-3xl text-Yellow2 font-bold mb-4">¿Tienes una propiedad para vender?</h2>
+              <p className="text-white text-lg">
                 Ponte en contacto con nuestro equipo para una valoración gratuita y maximiza tus oportunidades de venta
               </p>
             </div>

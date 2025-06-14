@@ -87,6 +87,7 @@
 
   .section-title {
     @apply text-3xl md:text-4xl font-bold text-nicaris-darkText mb-6 relative;
+    
   }
   
   .section-title::after {
