@@ -25,8 +25,12 @@ const PropertyDetails = () => {
     name: "Andres Morales",
     phone: "+505 8505 0811",
     whatsapp: "85050811",
-    email: "andresmoralesampienicaris@gmail.com"
+    email: "andresmoralesampienicaris@gmail.com",
   };
+
+  const IDservice = "service_0sscbwl";
+  const IDTemplateGM = "template_l3odtlo";
+  const ID_PR = "JkFHr3eLBSaKWHVdW";
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -142,10 +146,10 @@ const PropertyDetails = () => {
 
     try {
       const response = await emailjs.send(
-        `${property.IDservice}`,  
-        `${property.IDTemplateGM}`,
+        `${IDservice}`,  
+        `${IDTemplateGM}`,
         templateParams,
-        `${property.ID_PR}`
+        `${ID_PR}`
       );
 
       if (response.status === 200) {
@@ -380,7 +384,7 @@ const PropertyDetails = () => {
                 </div>
                 
                 <a 
-                  href={`https://wa.me/${contactInfo.whatsapp}?text=Hola, estoy interesado en la propiedad ${property.Data}`}
+                  href={`https://wa.me/${contactInfo.whatsapp}?text=Hola, estoy interesado en la propiedad en la ${property.title}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary w-full flex items-center justify-center gap-2"
