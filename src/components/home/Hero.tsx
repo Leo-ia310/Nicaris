@@ -62,7 +62,7 @@ const Hero = () => {
               Tu inversión segura en Nicaragua empieza con Nicaris
             </h1>
             <p className="text-lg md:text-xl mb-8 text-white/90">
-              Tu inversión segura en Nicaragua empieza con Nicaris. Expertos en propiedades rurales, Terrenos, Fincas y Canteras en Venta . 
+              Tu inversión segura en Nicaragua empieza con Nicaris. Expertos en propiedades rurales, Terrenos, Fincas y Canteras en Venta. 
               Asesoría profesional y personalizada.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -78,22 +78,6 @@ const Hero = () => {
               >
                 Solicitar asesoría gratuita
               </Link>
-            </div>
-          </div>
-          
-          {/* Slider Navigation Dots */}
-          <div className="absolute bottom-8 left-0 right-0">
-            <div className="flex justify-center gap-2">
-              {heroImages.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentImage ? 'bg-white scale-125' : 'bg-white/50'
-                  }`}
-                  onClick={() => setCurrentImage(index)}
-                  aria-label={`Slide ${index + 1}`}
-                />
-              ))}
             </div>
           </div>
         </div>
