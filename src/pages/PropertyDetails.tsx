@@ -201,7 +201,7 @@ const PropertyDetails = () => {
             <div className="lg:col-span-2">
               {/* Image Gallery */}
               <div className="mb-8">
-                <div className="relative w-full h-[400px] rounded-lg overflow-hidden mb-3">
+                <div className="relative w-full h-[400px] rounded-lg overflow-hidden mb-3 sha">
                   {property.images.map((image, idx) => (
                     <div
                       key={idx}
@@ -348,7 +348,7 @@ const PropertyDetails = () => {
             
             {/* Contact Information - Right Side */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
+              <div className="bg-white rounded-lg shadow-md p-6 sticky top-24 shadow-gris666">
                 <h3 className="text-xl font-semibold mb-4">Contactar al Asesor</h3>
                 
                 <div className="flex items-center gap-4 mb-6">

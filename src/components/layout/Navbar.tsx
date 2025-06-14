@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,15 +33,23 @@ const Navbar = () => {
     { id: "contact", name: "Contacto", link: "/contact" },
   ];
 
+  const handleLogoClick = () => {
+    // Navigate to home and refresh the page
+    navigate("/");
+    window.location.reload(); // This will refresh the page
+  };
+
   return (
     <header
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
-        scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
+        scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4",
+        location.pathname.includes('/property/') ? "bg-nicaris-green" : "",
+    
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3" onClick={handleLogoClick}>
           <div className="w-10 h-10 bg-nicaris-green rounded-md flex items-center justify-center">
             <span className="text-white font-bold text-lg">N</span>
           </div>
@@ -48,7 +57,11 @@ const Navbar = () => {
             <h2
               className={cn(
                 "font-bold text-xl transition-colors duration-300",
-                scrolled ? "text-nicaris-green" : "text-white"
+              location.pathname.includes('/property/')
+              ? "text-white"
+              : scrolled
+              ? "text-nicaris-green"
+              : "text-white"
               )}
             >
               NICARIS 
@@ -56,7 +69,11 @@ const Navbar = () => {
             <span
               className={cn(
                 "text-xs font-light transition-colors duration-300",
-                scrolled ? "text-nicaris-darkText" : "text-white"
+                location.pathname.includes('/property/')
+                ? "text-white"
+                : scrolled
+                ? "text-nicaris-darkText"
+                : "text-white"
               )}
             >
               Bienes Raíces
@@ -66,22 +83,39 @@ const Navbar = () => {
 
         {/* Navegacion Escritorio */}
         <nav className="hidden lg:flex items-center gap-6 relative">
-          {menuItems.map((item) => (
-            <Link
-              key={item.id}
-              to={item.link}
-              className={cn(
-                "font-medium transition-colors duration-300 hover:text-nicaris-green",
-                scrolled
-                  ? "text-nicaris-darkText"
-                  : "text-white"
-              )}
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
+          {menuItems.map((item) => {
+    const pathname = location.pathname;
+    const isPropertyPage = pathname.startsWith("/property/");
+    const isHomePage = pathname === "/";
+    const isOtherPage = !isPropertyPage && !isHomePage;
+
+    let linkClasses = "font-medium transition-colors duration-300 ";
+
+    if (isPropertyPage) {
+      linkClasses += "text-white hover:text-black";
+    } else if (isHomePage) {
+      linkClasses += scrolled
+        ? "text-nicaris-darkText hover:text-nicaris-green"
+        : "text-white hover:text-nicaris-green";
+    } else {
+      // Otras páginas (hover negro)
+      linkClasses += scrolled
+        ? "text-nicaris-darkText hover:text-black"
+        : "text-white hover:text-black";
+    }
+
+    return (
+      <Link
+        key={item.id}
+        to={item.link}
+        onClick={() => setIsOpen(false)}
+        className={linkClasses}
+      >
+        {item.name}
+      </Link>
+    );
+  })}
+</nav>
 
         {/* Botón menú móvil */}
         <button

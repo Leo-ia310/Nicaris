@@ -137,6 +137,7 @@ const Properties = () => {
       navigate({ search: params.toString() }, { replace: true });
     }
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col">

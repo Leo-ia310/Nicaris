@@ -21,7 +21,7 @@ interface PropertyCardProps {
 
 const PropertyCard = ({ property }: PropertyCardProps) => {
   return (
-    <div className="bg-white rounded-lg overflow-hidden card-shadow hover:translate-y-[-5px] transition-all duration-300">
+    <div className="bg-white rounded-lg overflow-hidden card-shadow hover:translate-y-[-20px] hover:shadow-black transition-all duration-300 shadow-black">
       <Link to={`/property/${property.id}`}>
         <div className="relative h-48">
           <img

@@ -69,7 +69,7 @@ const FeaturedProperties = () => {
           {featuredProperties.map((property) => (
             <div 
               key={property.id} 
-              className="bg-white rounded-lg overflow-hidden card-shadow hover:translate-y-[-20px] transition-all duration-300  shadow-black "
+              className="bg-white rounded-lg overflow-hidden card-shadow hover:translate-y-[-20px] hover:shadow-black transition-all duration-300  shadow-black "
             >
               <Link to={`/property/${property.id}`}>
                 <div className="relative h-48  shadow-black ">

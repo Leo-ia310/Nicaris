@@ -1,11 +1,14 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="bg-nicaris-darkText text-white pt-16 pb-6">
       <div className="container mx-auto">
@@ -52,27 +55,27 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4 text-white">Enlaces Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Inicio
                 </Link>
               </li>
               <li>
-                <Link to="/properties" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/properties" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Propiedades
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/about" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Sobre Nosotros
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/services" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Servicios
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/contact" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Contacto
                 </Link>
               </li>
@@ -84,22 +87,22 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4 text-white">Propiedades</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/properties?type=fincas" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/properties?type=finca" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Fincas Agrícolas y Ganaderas
                 </Link>
               </li>
               <li>
-                <Link to="/properties?type=terrenos" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/properties?type=terreno" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Terrenos para Inversión
                 </Link>
               </li>
               <li>
-                <Link to="/properties?type=casas" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/properties?type=casa" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Casas y Propiedades Urbanas
                 </Link>
               </li>
               <li>
-                <Link to="/properties?type=canteras" className="text-gray-300 hover:text-nicaris-gold transition-colors">
+                <Link to="/properties?type=cantera" onClick={handleScrollToTop} className="text-gray-300 hover:text-nicaris-gold transition-colors">
                   Canteras con Permiso
                 </Link>
               </li>
