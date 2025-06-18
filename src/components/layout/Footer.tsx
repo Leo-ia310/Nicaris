@@ -134,8 +134,8 @@ const Footer = () => {
         </div>
         
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-gray-700 text-center text-gray-400 text-sm">
-          <p>&copy; {currentYear} NICARIS Bienes Raíces. Todos los derechos reservados.</p>
+        <div className="pt-6 border-t border-gray-700 text-center text-white text-sm">
+          <p  className="text-white" >&copy; {currentYear} NICARIS Bienes Raíces. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
