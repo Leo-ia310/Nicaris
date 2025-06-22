@@ -38,7 +38,7 @@ const Properties = () => {
             price: parseFloat(row[6]) || 0, // Precio
             location: row[4], // Ubicación
             size: row[13] || row[11] || 0, // Tamaño
-            sizeUnit: row[53], // Unidad de tamaño
+            sizeUnit: row[54], // Unidad de tamaño
             type: row[7], // Tipo 
             description: row[2], // Descripción
           }));
