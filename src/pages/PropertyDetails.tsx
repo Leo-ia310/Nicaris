@@ -50,7 +50,7 @@ const PropertyDetails = () => {
               price: parseFloat(row[6]) || 0,
               location: row[4],
               size: row[13] || row[11] || 0,
-              sizeUnit: row[53],
+              sizeUnit: row[54],
               type: row[7],
               pricePerManzana: parseFloat(row[14]) || 0,
               images: row[18]
